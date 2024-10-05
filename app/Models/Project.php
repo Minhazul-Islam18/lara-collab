@@ -75,7 +75,7 @@ class Project extends Model implements AuditableContract
     {
         return self::orderBy('name')
             ->get(['id', 'name'])
-            ->map(fn($i) => ['value' => (string) $i->id, 'label' => $i->name])
+            ->map(fn ($i) => ['value' => (string) $i->id, 'label' => $i->name])
             ->toArray();
     }
 }
