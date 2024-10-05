@@ -23,26 +23,14 @@ class OwnerCompany extends Model implements AuditableContract
         'postal_code',
         'city',
         'country_id',
-        'currency_id',
         'email',
         'phone',
         'web',
-        'iban',
-        'swift',
-        'business_id',
-        'tax_id',
-        'vat',
-        'tax',
     ];
 
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
-    }
-
-    public function currency(): BelongsTo
-    {
-        return $this->belongsTo(Currency::class);
     }
 
     public function clients(): BelongsToMany
