@@ -14,6 +14,14 @@ class DashboardController extends Controller
     public function index(): Response
     {
         $projectIds = PermissionService::projectsThatUserCanAccess(auth()->user())->pluck('id');
+        $completedTaskUsers = Task::withoutGlobalScope('ordered')  // Disable the 'ordered' global scope
+            ->select('assigned_to_user_id')
+            ->whereNotNull('completed_at')
+            ->with('assignedToUser')
+            ->groupBy('assigned_to_user_id')
+            ->selectRaw('COUNT(*) as completed_tasks_count')
+            ->orderBy('completed_tasks_count', 'DESC')  // Order by highest number of tasks completed
+            ->get();
 
         return Inertia::render('Dashboard/Index', [
             'projects' => Project::whereIn('id', $projectIds)
@@ -22,8 +30,8 @@ class DashboardController extends Controller
                 ])
                 ->withCount([
                     'tasks AS all_tasks_count',
-                    'tasks AS completed_tasks_count' => fn ($query) => $query->whereNotNull('completed_at'),
-                    'tasks AS overdue_tasks_count' => fn ($query) => $query->whereNull('completed_at')->whereDate('due_on', '<', now()),
+                    'tasks AS completed_tasks_count' => fn($query) => $query->whereNotNull('completed_at'),
+                    'tasks AS overdue_tasks_count' => fn($query) => $query->whereNull('completed_at')->whereDate('due_on', '<', now()),
                 ])
                 ->withExists('favoritedByAuthUser AS favorite')
                 ->orderBy('favorite', 'desc')
@@ -58,6 +66,7 @@ class DashboardController extends Controller
                 ])
                 ->latest()
                 ->get(),
+            'completedTaskUsers' => $completedTaskUsers
         ]);
     }
 }

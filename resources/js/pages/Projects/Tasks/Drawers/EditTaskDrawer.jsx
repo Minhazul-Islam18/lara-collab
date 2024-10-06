@@ -238,12 +238,12 @@ export function EditTaskDrawer() {
                 mt='md'
               />
 
-              {/* {(can('view time logs') || can('add time log')) && ( */}
-              <Timer
-                mt='xl'
-                task={task}
-              />
-              {/* )} */}
+              {(can('view time logs') || can('add time log')) && (
+                <Timer
+                  mt='xl'
+                  task={task}
+                />
+              )}
             </div>
           </form>
         </>
