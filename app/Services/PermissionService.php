@@ -123,18 +123,18 @@ class PermissionService
         $admins = User::role('admin')
             ->with('roles:id,name')
             ->get(['id', 'name', 'avatar'])
-            ->map(fn($user) => [...$user->toArray(), 'reason' => 'admin']);
+            ->map(fn ($user) => [...$user->toArray(), 'reason' => 'admin']);
 
         $owners = $project
             ->clientCompany
             ->clients
             ->load('roles:id,name')
-            ->map(fn($user) => [...$user->toArray(), 'reason' => 'company owner']);
+            ->map(fn ($user) => [...$user->toArray(), 'reason' => 'company owner']);
 
         $givenAccess = $project
             ->users
             ->load('roles:id,name')
-            ->map(fn($user) => [...$user->toArray(), 'reason' => 'given access']);
+            ->map(fn ($user) => [...$user->toArray(), 'reason' => 'given access']);
 
         return self::$usersWithAccessToProject[$project->id] = collect([
             ...$admins,
@@ -163,7 +163,7 @@ class PermissionService
             ->merge(
                 $user
                     ->clientCompanies
-                    ->map(fn(ClientCompany $company) => $company->projects->toArray())
+                    ->map(fn (ClientCompany $company) => $company->projects->toArray())
                     ->collapse()
             )
             ->unique('id')
