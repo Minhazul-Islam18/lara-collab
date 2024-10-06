@@ -6,8 +6,6 @@ use App\Http\Controllers\Client\ClientCompanyController;
 use App\Http\Controllers\Client\ClientUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DropdownValuesController;
-use App\Http\Controllers\Invoice\InvoiceTasksController;
-use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MyWork\ActivityController;
 use App\Http\Controllers\MyWork\MyWorkTaskController;
 use App\Http\Controllers\ProjectController;
@@ -96,16 +94,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Users
     Route::resource('users', UserController::class)->except(['show']);
     Route::post('users/{userId}/restore', [UserController::class, 'restore'])->name('users.restore');
-
-    // Invoices
-    Route::resource('invoices', InvoiceController::class)->except(['show']);
-    Route::group(['prefix' => 'invoices', 'as' => 'invoices.'], function () {
-        Route::get('tasks', [InvoiceTasksController::class, 'index'])->name('tasks');
-        Route::put('{invoice}/status', [InvoiceController::class, 'setStatus'])->name('status');
-        Route::post('{invoice}/restore', [InvoiceController::class, 'restore'])->name('restore');
-        Route::get('{invoice}/download', [InvoiceController::class, 'download'])->name('download');
-        Route::get('{invoice}/pdf', [InvoiceController::class, 'pdf'])->name('pdf');
-    });
 
     // Reports
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {

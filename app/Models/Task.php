@@ -31,7 +31,6 @@ class Task extends Model implements AuditableContract, Sortable
         'group_id',
         'created_by_user_id',
         'assigned_to_user_id',
-        'invoice_id',
         'name',
         'number',
         'description',
@@ -119,11 +118,6 @@ class Task extends Model implements AuditableContract, Sortable
     public function assignedToUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to_user_id');
-    }
-
-    public function invoice(): BelongsTo
-    {
-        return $this->belongsTo(Invoice::class);
     }
 
     public function subscribedUsers(): BelongsToMany
