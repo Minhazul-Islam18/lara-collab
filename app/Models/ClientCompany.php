@@ -23,15 +23,9 @@ class ClientCompany extends Model implements AuditableContract
         'postal_code',
         'city',
         'country_id',
-        'currency_id',
         'email',
         'phone',
         'web',
-        'iban',
-        'swift',
-        'business_id',
-        'tax_id',
-        'vat',
     ];
 
     protected $searchable = [

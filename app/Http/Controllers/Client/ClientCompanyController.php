@@ -30,7 +30,7 @@ class ClientCompanyController extends Controller
                 ClientCompany::searchByQueryString()
                     ->sortByQueryString()
                     ->with(['clients', 'currency'])
-                    ->when($request->has('archived'), fn ($query) => $query->onlyArchived())
+                    ->when($request->has('archived'), fn($query) => $query->onlyArchived())
                     ->paginate(12)
             ),
         ]);
@@ -40,9 +40,7 @@ class ClientCompanyController extends Controller
     {
         return Inertia::render('Clients/Companies/Create', [
             'dropdowns' => [
-                'clients' => User::clientDropdownValues(),
                 'countries' => Country::dropdownValues(),
-                'currencies' => Currency::dropdownValues(),
             ],
         ]);
     }
@@ -59,9 +57,7 @@ class ClientCompanyController extends Controller
         return Inertia::render('Clients/Companies/Edit', [
             'item' => new ClientCompanyResource($company),
             'dropdowns' => [
-                'clients' => User::clientDropdownValues(),
                 'countries' => Country::dropdownValues(),
-                'currencies' => Currency::dropdownValues(),
             ],
         ]);
     }

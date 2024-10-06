@@ -11,7 +11,6 @@ import {
   Fieldset,
   Grid,
   Group,
-  MultiSelect,
   Select,
   TextInput,
   Title,
@@ -19,7 +18,7 @@ import {
 
 const ClientCompanyCreate = () => {
   const {
-    dropdowns: { clients, countries, currencies },
+    dropdowns: { clients, countries },
   } = usePage().props;
   const [form, submit, updateValue] = useForm('post', route('clients.companies.store'), {
     name: '',
@@ -27,15 +26,8 @@ const ClientCompanyCreate = () => {
     postal_code: '',
     city: '',
     country_id: '',
-    currency_id: '',
     email: '',
     phone: '',
-    web: '',
-    iban: '',
-    swift: '',
-    business_id: '',
-    tax_id: '',
-    vat: '',
     clients: route().params?.client_id ? [route().params.client_id] : [],
   });
 
@@ -76,29 +68,6 @@ const ClientCompanyCreate = () => {
             value={form.data.name}
             onChange={e => updateValue('name', e.target.value)}
             error={form.errors.name}
-          />
-
-          <Select
-            label='Default currency'
-            placeholder='Select currency'
-            required
-            mt='md'
-            searchable={true}
-            value={form.data.currency_id}
-            onChange={value => updateValue('currency_id', value)}
-            data={currencies}
-            error={form.errors.currency_id}
-          />
-
-          <MultiSelect
-            label='Clients'
-            placeholder='Select clients'
-            required
-            mt='md'
-            value={form.data.clients}
-            onChange={values => updateValue('clients', values)}
-            data={clients}
-            error={form.errors.clients}
           />
 
           <Fieldset
@@ -142,71 +111,6 @@ const ClientCompanyCreate = () => {
               onChange={value => updateValue('country_id', value)}
               data={countries}
               error={form.errors.country_id}
-            />
-          </Fieldset>
-
-          <Fieldset
-            legend='Details'
-            mt='xl'
-          >
-            <TextInput
-              label='Business ID'
-              placeholder='Business ID'
-              value={form.data.business_id}
-              onChange={e => updateValue('business_id', e.target.value)}
-              error={form.errors.business_id}
-            />
-
-            <TextInput
-              label='Tax ID'
-              placeholder='Tax ID'
-              mt='md'
-              value={form.data.tax_id}
-              onChange={e => updateValue('tax_id', e.target.value)}
-              error={form.errors.tax_id}
-            />
-
-            <TextInput
-              label='VAT'
-              placeholder='VAT'
-              mt='md'
-              value={form.data.vat}
-              onChange={e => updateValue('vat', e.target.value)}
-              error={form.errors.vat}
-            />
-          </Fieldset>
-
-          <Fieldset
-            legend='Finance'
-            mt='xl'
-          >
-            <TextInput
-              label='IBAN'
-              placeholder='IBAN'
-              value={form.data.iban}
-              onChange={e => updateValue('iban', e.target.value)}
-              error={form.errors.iban}
-            />
-
-            <TextInput
-              label='SWIFT'
-              placeholder='SWIFT'
-              mt='md'
-              value={form.data.swift}
-              onChange={e => updateValue('swift', e.target.value)}
-              error={form.errors.swift}
-            />
-
-            <Select
-              label='Default currency'
-              placeholder='Select currency'
-              required
-              mt='md'
-              searchable={true}
-              value={form.data.currency_id}
-              onChange={value => updateValue('currency_id', value)}
-              data={currencies}
-              error={form.errors.currency_id}
             />
           </Fieldset>
 

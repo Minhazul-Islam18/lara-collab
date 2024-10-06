@@ -26,7 +26,7 @@ class CreateUser
 
             $user->assignRole($data['roles']);
 
-            UserCreated::dispatch($user, $data['password']);
+            // UserCreated::dispatch($user, $data['password']);
 
             return $user;
         });

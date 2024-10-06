@@ -30,13 +30,6 @@ class StoreClientCompanyRequest extends FormRequest
             'currency_id' => 'integer|nullable',
             'email' => 'email:rfc,dns|nullable',
             'phone' => 'string|nullable',
-            'web' => 'string|nullable',
-            'iban' => 'string|nullable',
-            'swift' => 'string|nullable',
-            'business_id' => 'string|nullable',
-            'tax_id' => 'string|nullable',
-            'vat' => 'string|nullable',
-            'clients' => 'array|nullable',
         ];
     }
 }

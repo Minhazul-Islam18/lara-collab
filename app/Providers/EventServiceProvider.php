@@ -4,9 +4,7 @@ namespace App\Providers;
 
 use App\Events\Task\CommentCreated;
 use App\Events\Task\TaskCreated;
-use App\Events\UserCreated;
 use App\Listeners\NotifyTaskSubscribers;
-use App\Listeners\SendEmailWithCredentials;
 use App\Models\Comment;
 use App\Models\Project;
 use App\Models\Task;
@@ -24,15 +22,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        UserCreated::class => [
-            SendEmailWithCredentials::class,
-        ],
-        TaskCreated::class => [
-            NotifyTaskSubscribers::class,
-        ],
-        CommentCreated::class => [
-            NotifyTaskSubscribers::class,
-        ],
+        // TaskCreated::class => [
+        //     NotifyTaskSubscribers::class,
+        // ],
+        // CommentCreated::class => [
+        //     NotifyTaskSubscribers::class,
+        // ],
     ];
 
     /**

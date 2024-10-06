@@ -12,10 +12,6 @@ class CreateClientCompany
         return DB::transaction(function () use ($data) {
             $clientCompany = ClientCompany::create($data);
 
-            if (! empty($data['clients'])) {
-                $clientCompany->clients()->attach($data['clients']);
-            }
-
             return $clientCompany;
         });
     }
