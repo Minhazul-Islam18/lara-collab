@@ -35,9 +35,6 @@ class Task extends Model implements AuditableContract, Sortable
         'number',
         'description',
         'due_on',
-        'estimation',
-        'hidden_from_clients',
-        'billable',
         'order_column',
         'assigned_at',
         'completed_at',
@@ -51,9 +48,6 @@ class Task extends Model implements AuditableContract, Sortable
     protected $casts = [
         'due_on' => 'date',
         'completed_at' => 'datetime',
-        'hidden_from_clients' => 'boolean',
-        'billable' => 'boolean',
-        'estimation' => 'float',
     ];
 
     protected $observables = [
@@ -65,7 +59,6 @@ class Task extends Model implements AuditableContract, Sortable
         'project:id,name',
         'createdByUser:id,name,avatar',
         'assignedToUser:id,name,avatar',
-        'subscribedUsers:id',
         'labels:id,name,color',
         'attachments',
         'timeLogs.user:id,name',
@@ -118,11 +111,6 @@ class Task extends Model implements AuditableContract, Sortable
     public function assignedToUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to_user_id');
-    }
-
-    public function subscribedUsers(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'subscribe_task');
     }
 
     public function labels(): BelongsToMany
