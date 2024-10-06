@@ -61,9 +61,9 @@ class ClientCompany extends Model implements AuditableContract
     public static function dropdownValues($options = []): array
     {
         return self::orderBy('name')
-            ->when(in_array('hasProjects', $options), fn($query) => $query->has('projects'))
+            ->when(in_array('hasProjects', $options), fn ($query) => $query->has('projects'))
             ->get(['id', 'name'])
-            ->map(fn($i) => ['value' => (string) $i->id, 'label' => $i->name])
+            ->map(fn ($i) => ['value' => (string) $i->id, 'label' => $i->name])
             ->toArray();
     }
 }
