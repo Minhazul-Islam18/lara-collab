@@ -30,8 +30,8 @@ class DashboardController extends Controller
                 ])
                 ->withCount([
                     'tasks AS all_tasks_count',
-                    'tasks AS completed_tasks_count' => fn($query) => $query->whereNotNull('completed_at'),
-                    'tasks AS overdue_tasks_count' => fn($query) => $query->whereNull('completed_at')->whereDate('due_on', '<', now()),
+                    'tasks AS completed_tasks_count' => fn ($query) => $query->whereNotNull('completed_at'),
+                    'tasks AS overdue_tasks_count' => fn ($query) => $query->whereNull('completed_at')->whereDate('due_on', '<', now()),
                 ])
                 ->withExists('favoritedByAuthUser AS favorite')
                 ->orderBy('favorite', 'desc')
@@ -66,7 +66,7 @@ class DashboardController extends Controller
                 ])
                 ->latest()
                 ->get(),
-            'completedTaskUsers' => $completedTaskUsers
+            'completedTaskUsers' => $completedTaskUsers,
         ]);
     }
 }
